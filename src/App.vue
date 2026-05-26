@@ -53,11 +53,24 @@ body {
   margin: 0;
   background: var(--site-bg);
   color: var(--site-text);
+  font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+  line-height: 1.5;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
 }
 
 #app {
@@ -66,8 +79,12 @@ a {
   color: var(--site-text);
 }
 
+.site-shell {
+  overflow: hidden;
+}
+
 main {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 section[id] {
@@ -192,5 +209,43 @@ section[id] {
 .site-textarea {
   min-height: 10rem;
   resize: vertical;
+}
+
+@media (min-width: 768px) {
+  .site-container {
+    padding: 0 1.5rem;
+  }
+
+  .site-section {
+    padding: 6rem 0;
+  }
+}
+
+@media (max-width: 767px) {
+  section[id] {
+    scroll-margin-top: 84px;
+  }
+
+  .site-container {
+    padding: 0 1.25rem;
+  }
+
+  .site-section {
+    padding: 4rem 0;
+  }
+
+  .site-section-header {
+    margin-bottom: 2.25rem;
+  }
+
+  .site-button {
+    width: 100%;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .site-button {
+    width: auto;
+  }
 }
 </style>

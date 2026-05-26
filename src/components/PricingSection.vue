@@ -2,56 +2,58 @@
   <section id="pricing" class="site-section">
     <div class="site-container">
       <div class="site-section-header">
-        <span class="site-section-label">Pricing</span>
-        <h2 class="site-section-title">Table-card pricing placeholder.</h2>
+        <span class="site-section-label">Tarieven</span>
+        <h2 class="site-section-title">Duidelijke opties voor elk type speler.</h2>
         <p class="site-section-copy">
-          The original demo table is replaced with a cleaner placeholder for
-          lesson formats and pricing rows you can update later.
+          De opzet blijft overzichtelijk, zodat je snel ziet welke lessen er
+          zijn en welke vorm het beste bij jou past.
         </p>
       </div>
 
       <div class="pricing-card site-card overflow-hidden">
         <div class="pricing-card__header">
-          <h3 class="pricing-card__title">Session Overview</h3>
-          <p class="pricing-card__copy">
-            Replace these placeholder entries with your real lesson packages,
-            timing, and rates.
-          </p>
+          <h3 class="pricing-card__title">Lesoverzicht</h3>
         </div>
         <div class="pricing-table-wrap">
           <table class="pricing-table">
             <thead>
               <tr>
-                <th>Session</th>
-                <th>Format</th>
-                <th>Rate</th>
-                <th>Notes</th>
+                <th>Les</th>
+                <th>Duur</th>
+                <th>Tarief</th>
+                <th>Notitie</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Private Lesson</td>
-                <td>60 minutes</td>
-                <td>Placeholder</td>
-                <td>Use for one-to-one coaching details.</td>
+                <td>Priveles</td>
+                <td>60 minuten</td>
+                <td>Op aanvraag</td>
+                <td>Volledige aandacht en training op jouw tempo.</td>
               </tr>
               <tr>
-                <td>Semi-Private</td>
-                <td>60 minutes</td>
-                <td>Placeholder</td>
-                <td>Use for paired sessions or shared drills.</td>
+                <td>Duoles (2 personen)</td>
+                <td>75 minuten</td>
+                <td>Op aanvraag</td>
+                <td>Samen trainen en toch veel persoonlijke feedback.</td>
               </tr>
               <tr>
-                <td>Junior Program</td>
-                <td>45 minutes</td>
-                <td>Placeholder</td>
-                <td>Use for youth development or starter blocks.</td>
+                <td>Groepsles (3+ personen)</td>
+                <td>75 minuten</td>
+                <td>Op aanvraag</td>
+                <td>Energieke lessen met veel beweging en plezier.</td>
               </tr>
               <tr>
-                <td>Match Prep</td>
-                <td>90 minutes</td>
-                <td>Placeholder</td>
-                <td>Use for tactical review and competition prep.</td>
+                <td>Kids (tot 12 jaar)</td>
+                <td>45 minuten</td>
+                <td>Op aanvraag</td>
+                <td>Spelenderwijs sterker worden op de baan.</td>
+              </tr>
+              <tr>
+                <td>Wedstrijdvoorbereiding</td>
+                <td>60 minuten</td>
+                <td>Op aanvraag</td>
+                <td>Gericht trainen voor focus, ritme en slim spel.</td>
               </tr>
             </tbody>
           </table>
@@ -71,13 +73,6 @@
   margin: 0;
   font-size: 1.5rem;
   font-weight: 700;
-}
-
-.pricing-card__copy {
-  margin: 0.75rem 0 0;
-  max-width: 36rem;
-  line-height: 1.75;
-  opacity: 0.9;
 }
 
 .pricing-table-wrap {

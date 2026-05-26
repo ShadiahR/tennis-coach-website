@@ -2,13 +2,16 @@
   <header class="site-header">
     <div class="site-container">
       <div class="flex items-center justify-between py-4">
-        <a href="#home" class="site-logo">Tennis Coach</a>
+        <a href="#home" class="site-logo">
+          <img :src="logoImage" alt="Tennisbal logo" class="site-logo-mark" />
+          <span class="site-logo-text">Coach Rodney</span>
+        </a>
         <button
           class="site-menu-button lg:hidden"
           type="button"
           @click="menuOpen = !menuOpen"
         >
-          {{ menuOpen ? "Close" : "Menu" }}
+          {{ menuOpen ? "Sluiten" : "Menu" }}
         </button>
         <nav class="hidden lg:flex items-center space-x-1">
           <a
@@ -37,17 +40,20 @@
 </template>
 
 <script>
+import logoImage from "@/assets/img/tennis-ball-icon.jpg";
+
 const navItems = [
   { label: "Home", href: "#home" },
-  { label: "Lessons", href: "#lessons" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "About Me", href: "#about" },
+  { label: "Lessen", href: "#lessons" },
+  { label: "Tarieven", href: "#pricing" },
+  { label: "Over Rodney", href: "#about" },
   { label: "Contact", href: "#contact" },
 ];
 
 export default {
   data() {
     return {
+      logoImage,
       menuOpen: false,
       navItems,
     };
@@ -69,10 +75,25 @@ export default {
 }
 
 .site-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
   color: #ffffff;
-  font-size: 0.85rem;
+}
+
+.site-logo-mark {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: cover;
+  border-radius: 9999px;
+  border: 2px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.site-logo-text {
+  font-size: 0.95rem;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
@@ -107,6 +128,8 @@ export default {
 .site-nav-panel {
   display: flex;
   flex-direction: column;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 0.5rem;
   padding-bottom: 1rem;
 }
 
@@ -114,5 +137,12 @@ export default {
   width: 100%;
   justify-content: center;
   margin-top: 0.25rem;
+}
+
+@media (max-width: 639px) {
+  .site-logo-text {
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+  }
 }
 </style>
