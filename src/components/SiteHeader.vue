@@ -44,9 +44,9 @@ import logoImage from "@/assets/img/tennis-ball-icon.jpg";
 
 const navItems = [
   { label: "Home", href: "#home" },
+  { label: "Over Rodney", href: "#about" },
   { label: "Lessen", href: "#lessons" },
   { label: "Tarieven", href: "#pricing" },
-  { label: "Over Rodney", href: "#about" },
   { label: "Contact", href: "#contact" },
 ];
 

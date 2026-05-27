@@ -1,118 +1,177 @@
 <template>
-  <section id="pricing" class="site-section">
+  <section id="pricing" class="site-section pricing-section">
     <div class="site-container">
       <div class="site-section-header">
         <span class="site-section-label">Tarieven</span>
-        <h2 class="site-section-title">Duidelijke opties voor elk type speler.</h2>
+        <h2 class="site-section-title">Kies de lesvorm die past bij jouw ritme.</h2>
         <p class="site-section-copy">
-          De opzet blijft overzichtelijk, zodat je snel ziet welke lessen er
-          zijn en welke vorm het beste bij jou past.
+          Vier duidelijke opties, zodat je snel ziet welke vorm past bij jouw
+          tempo, gezelschap en manier van leren.
         </p>
       </div>
 
-      <div class="pricing-card site-card overflow-hidden">
-        <div class="pricing-card__header">
-          <h3 class="pricing-card__title">Lesoverzicht</h3>
-        </div>
-        <div class="pricing-table-wrap">
-          <table class="pricing-table">
-            <thead>
-              <tr>
-                <th>Les</th>
-                <th>Duur</th>
-                <th>Tarief</th>
-                <th>Notitie</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Priveles</td>
-                <td>60 minuten</td>
-                <td>Op aanvraag</td>
-                <td>Volledige aandacht en training op jouw tempo.</td>
-              </tr>
-              <tr>
-                <td>Duoles (2 personen)</td>
-                <td>75 minuten</td>
-                <td>Op aanvraag</td>
-                <td>Samen trainen en toch veel persoonlijke feedback.</td>
-              </tr>
-              <tr>
-                <td>Groepsles (3+ personen)</td>
-                <td>75 minuten</td>
-                <td>Op aanvraag</td>
-                <td>Energieke lessen met veel beweging en plezier.</td>
-              </tr>
-              <tr>
-                <td>Kids (tot 12 jaar)</td>
-                <td>45 minuten</td>
-                <td>Op aanvraag</td>
-                <td>Spelenderwijs sterker worden op de baan.</td>
-              </tr>
-              <tr>
-                <td>Wedstrijdvoorbereiding</td>
-                <td>60 minuten</td>
-                <td>Op aanvraag</td>
-                <td>Gericht trainen voor focus, ritme en slim spel.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="pricing-grid">
+        <article
+          v-for="item in pricingItems"
+          :key="item.title"
+          :class="['pricing-card', { 'pricing-card--featured': item.featured }]"
+        >
+          <span v-if="item.featured" class="pricing-card__badge">
+            Meest gekozen
+          </span>
+          <span class="pricing-card__eyebrow">{{ item.duration }}</span>
+          <h3 class="pricing-card__title">{{ item.title }}</h3>
+          <p class="pricing-card__price">{{ item.price }}</p>
+          <p class="pricing-card__copy">{{ item.copy }}</p>
+        </article>
       </div>
     </div>
   </section>
 </template>
 
+<script>
+const pricingItems = [
+  {
+    title: "Privéles",
+    duration: "60 minuten",
+    price: "€35 / uur",
+    copy:
+      "Voor spelers die volle aandacht willen voor techniek, ritme en gerichte coaching op maat.",
+    featured: false,
+  },
+  {
+    title: "Duoles",
+    duration: "75 minuten",
+    price: "€50 / sessie",
+    copy:
+      "Perfect als je samen wilt trainen en tegelijk persoonlijke feedback wilt houden.",
+    featured: true,
+  },
+  {
+    title: "Groepsles",
+    duration: "75 minuten",
+    price: "€60 / sessie",
+    copy:
+      "Veel beweging, rally's en energie voor spelers die graag samen leren en spelen.",
+    featured: false,
+  },
+  {
+    title: "Kids",
+    duration: "45 minuten",
+    price: "€25 / 45 min",
+    copy:
+      "Speelse lessen voor jonge spelers waarin plezier, controle en vertrouwen centraal staan.",
+    featured: false,
+  },
+];
+
+export default {
+  data() {
+    return {
+      pricingItems,
+    };
+  },
+};
+</script>
+
 <style scoped>
-.pricing-card__header {
-  padding: 2rem;
-  background: rgba(104, 176, 171, 0.28);
-}
-
-.pricing-card__title {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-.pricing-table-wrap {
-  overflow-x: auto;
+.pricing-section {
   background: #ffffff;
 }
 
-.pricing-table {
-  width: 100%;
-  border-collapse: collapse;
-  color: #0f172a;
+.pricing-grid {
+  display: grid;
+  gap: 1.25rem;
 }
 
-.pricing-table th,
-.pricing-table td {
-  padding: 1rem 1.25rem;
-  text-align: left;
+.pricing-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  border-radius: 1.5rem;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
+  padding: 1.8rem;
 }
 
-.pricing-table thead th {
-  background: rgba(104, 176, 171, 0.12);
-  color: var(--site-header-footer);
-  font-size: 0.75rem;
+.pricing-card--featured {
+  background: linear-gradient(145deg, #202860 0%, #325381 100%);
+  border-color: transparent;
+  box-shadow: 0 26px 60px rgba(32, 40, 96, 0.24);
+  color: #ffffff;
+}
+
+.pricing-card__badge {
+  display: inline-flex;
+  align-self: flex-start;
+  margin-bottom: 1rem;
+  border-radius: 9999px;
+  background: rgba(223, 255, 79, 0.18);
+  color: var(--site-button);
+  font-size: 0.74rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
+  padding: 0.45rem 0.75rem;
   text-transform: uppercase;
 }
 
-.pricing-table tbody tr + tr td {
-  border-top: 1px solid rgba(15, 23, 42, 0.08);
+.pricing-card__eyebrow {
+  display: inline-block;
+  color: var(--site-accent);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
-.pricing-table tbody tr:hover {
-  background: rgba(104, 176, 171, 0.06);
+.pricing-card--featured .pricing-card__eyebrow {
+  color: rgba(255, 255, 255, 0.78);
 }
 
-@media (max-width: 767px) {
-  .pricing-table th,
-  .pricing-table td {
-    min-width: 11rem;
+.pricing-card__title {
+  margin: 0.8rem 0 0;
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.pricing-card__price {
+  margin: 1rem 0 0;
+  color: #0f172a;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.pricing-card--featured .pricing-card__price {
+  color: #ffffff;
+}
+
+.pricing-card__copy {
+  margin: 1rem 0 0;
+  color: #475569;
+  line-height: 1.8;
+}
+
+.pricing-card--featured .pricing-card__copy {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+@media (min-width: 768px) {
+  .pricing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .pricing-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  .pricing-card--featured {
+    transform: translateY(-0.75rem);
   }
 }
 </style>

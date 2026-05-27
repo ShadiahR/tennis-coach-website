@@ -3,9 +3,9 @@
     <site-header />
     <main>
       <home-section />
+      <about-section />
       <lessons-section />
       <pricing-section />
-      <about-section />
       <contact-section />
     </main>
     <site-footer />
@@ -93,14 +93,14 @@ section[id] {
 
 .site-container {
   width: 100%;
-  max-width: 72rem;
+  max-width: 76rem;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
 .site-section {
   position: relative;
-  padding: 5rem 0;
+  padding: 5.5rem 0;
 }
 
 .site-section--muted {
@@ -108,7 +108,7 @@ section[id] {
 }
 
 .site-section-header {
-  max-width: 36rem;
+  max-width: 40rem;
   margin: 0 auto 3rem;
   text-align: center;
 }
@@ -176,7 +176,8 @@ section[id] {
 .site-panel {
   background: #ffffff;
   border-radius: 1rem;
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(15, 23, 42, 0.05);
+  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.09);
 }
 
 .site-card {
@@ -217,7 +218,7 @@ section[id] {
   }
 
   .site-section {
-    padding: 6rem 0;
+    padding: 6.5rem 0;
   }
 }
 
