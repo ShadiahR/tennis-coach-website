@@ -1,7 +1,7 @@
 <template>
   <section id="pricing" class="site-section pricing-section">
     <div class="site-container">
-      <div class="site-section-header">
+      <div class="site-section-header" v-reveal="{ effect: 'fade-up' }">
         <span class="site-section-label">Tarieven</span>
         <h2 class="site-section-title">Kies de lesvorm die past bij jouw ritme.</h2>
         <p class="site-section-copy">
@@ -12,9 +12,15 @@
 
       <div class="pricing-grid">
         <article
-          v-for="item in pricingItems"
+          v-for="(item, index) in pricingItems"
           :key="item.title"
-          :class="['pricing-card', { 'pricing-card--featured': item.featured }]"
+          :class="[
+            'pricing-card',
+            'site-panel',
+            'site-interactive',
+            { 'pricing-card--featured': item.featured },
+          ]"
+          v-reveal="{ effect: 'fade-up', delay: index * 80 }"
         >
           <span v-if="item.featured" class="pricing-card__badge">
             Meest gekozen
@@ -23,6 +29,10 @@
           <h3 class="pricing-card__title">{{ item.title }}</h3>
           <p class="pricing-card__price">{{ item.price }}</p>
           <p class="pricing-card__copy">{{ item.copy }}</p>
+          <p class="pricing-card__fit">
+            <span class="pricing-card__fit-label">Past goed bij</span>
+            <strong>{{ item.bestFor }}</strong>
+          </p>
         </article>
       </div>
     </div>
@@ -32,36 +42,40 @@
 <script>
 const pricingItems = [
   {
-    title: "Privéles",
+    bestFor: "spelers die volle aandacht willen",
+    copy:
+      "Volle focus op techniek, ritme en gerichte coaching op maat.",
     duration: "60 minuten",
+    featured: false,
     price: "€35 / uur",
-    copy:
-      "Voor spelers die volle aandacht willen voor techniek, ritme en gerichte coaching op maat.",
-    featured: false,
+    title: "Privéles",
   },
   {
-    title: "Duoles",
-    duration: "75 minuten",
-    price: "€50 / sessie",
+    bestFor: "vrienden, partners of trainingsmaatjes",
     copy:
-      "Perfect als je samen wilt trainen en tegelijk persoonlijke feedback wilt houden.",
+      "Samen trainen met persoonlijke feedback en een levendig lesritme.",
+    duration: "75 minuten",
     featured: true,
+    price: "€50 / sessie",
+    title: "Duoles",
   },
   {
-    title: "Groepsles",
+    bestFor: "spelers die graag samen leren en bewegen",
+    copy:
+      "Veel rally's, energie en duidelijke sturing voor kleine groepen.",
     duration: "75 minuten",
-    price: "€60 / sessie",
-    copy:
-      "Veel beweging, rally's en energie voor spelers die graag samen leren en spelen.",
     featured: false,
+    price: "€60 / sessie",
+    title: "Groepsles",
   },
   {
-    title: "Kids",
-    duration: "45 minuten",
-    price: "€25 / 45 min",
+    bestFor: "jonge spelers die speels willen groeien",
     copy:
-      "Speelse lessen voor jonge spelers waarin plezier, controle en vertrouwen centraal staan.",
+      "Plezier, controle en vertrouwen in een kortere lesvorm voor kids.",
+    duration: "45 minuten",
     featured: false,
+    price: "€25 / 45 min",
+    title: "Kids",
   },
 ];
 
@@ -76,12 +90,12 @@ export default {
 
 <style scoped>
 .pricing-section {
-  background: #ffffff;
+  background: transparent;
 }
 
 .pricing-grid {
   display: grid;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
 .pricing-card {
@@ -89,59 +103,57 @@ export default {
   display: flex;
   flex-direction: column;
   min-height: 100%;
-  border-radius: 1.5rem;
-  background: #ffffff;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
-  padding: 1.8rem;
+  padding: 1.35rem;
 }
 
 .pricing-card--featured {
-  background: linear-gradient(145deg, #202860 0%, #325381 100%);
+  background:
+    linear-gradient(145deg, rgba(17, 28, 69, 0.96), rgba(50, 83, 129, 0.96)),
+    #202860;
   border-color: transparent;
-  box-shadow: 0 26px 60px rgba(32, 40, 96, 0.24);
+  box-shadow: 0 28px 60px rgba(17, 28, 69, 0.22);
   color: #ffffff;
 }
 
 .pricing-card__badge {
   display: inline-flex;
   align-self: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 0.9rem;
   border-radius: 9999px;
-  background: rgba(223, 255, 79, 0.18);
+  background: rgba(223, 255, 79, 0.16);
   color: var(--site-button);
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.12em;
-  padding: 0.45rem 0.75rem;
+  padding: 0.42rem 0.75rem;
   text-transform: uppercase;
 }
 
 .pricing-card__eyebrow {
   display: inline-block;
-  color: var(--site-accent);
-  font-size: 0.74rem;
+  color: #34538b;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .pricing-card--featured .pricing-card__eyebrow {
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .pricing-card__title {
-  margin: 0.8rem 0 0;
-  font-size: 1.7rem;
-  font-weight: 700;
+  margin: 0.7rem 0 0;
+  font-size: 1.55rem;
+  line-height: 1.15;
 }
 
 .pricing-card__price {
-  margin: 1rem 0 0;
-  color: #0f172a;
+  margin: 0.8rem 0 0;
+  color: var(--site-text);
   font-size: 2rem;
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.05;
 }
 
 .pricing-card--featured .pricing-card__price {
@@ -149,13 +161,35 @@ export default {
 }
 
 .pricing-card__copy {
-  margin: 1rem 0 0;
-  color: #475569;
-  line-height: 1.8;
+  margin: 0.85rem 0 0;
+  color: var(--site-text-soft);
+  line-height: 1.72;
 }
 
 .pricing-card--featured .pricing-card__copy {
   color: rgba(255, 255, 255, 0.82);
+}
+
+.pricing-card__fit {
+  display: grid;
+  gap: 0.2rem;
+  margin: auto 0 0;
+  padding-top: 1rem;
+  color: var(--site-text);
+  font-size: 0.92rem;
+}
+
+.pricing-card__fit-label {
+  color: #34538b;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pricing-card--featured .pricing-card__fit,
+.pricing-card--featured .pricing-card__fit-label {
+  color: rgba(255, 255, 255, 0.88);
 }
 
 @media (min-width: 768px) {
@@ -167,11 +201,6 @@ export default {
 @media (min-width: 1200px) {
   .pricing-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    align-items: stretch;
-  }
-
-  .pricing-card--featured {
-    transform: translateY(-0.75rem);
   }
 }
 </style>

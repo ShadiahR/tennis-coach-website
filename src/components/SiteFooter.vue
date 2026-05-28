@@ -13,8 +13,8 @@
       </nav>
 
       <p class="site-footer__bar">
-        &copy; {{ year }} Coach Rodney. All rights reserved. Made by Shadiah
-        Ricardo.
+        &copy; {{ year }} Rodney Eelst Tennis. All rights reserved. Made by
+        Shadiah Ricardo.
       </p>
     </div>
   </footer>

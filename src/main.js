@@ -6,9 +6,75 @@ import tennisBallIcon from "@/assets/img/tennis-ball-icon.jpg";
 
 import App from "@/App.vue";
 
+const revealRegistry = new WeakMap();
+let revealObserver;
+
+const getRevealObserver = () => {
+  if (revealObserver || !("IntersectionObserver" in window)) {
+    return revealObserver;
+  }
+
+  revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+        revealRegistry.delete(entry.target);
+      });
+    },
+    {
+      rootMargin: "0px 0px -12% 0px",
+      threshold: 0.18,
+    }
+  );
+
+  return revealObserver;
+};
+
+const revealDirective = {
+  mounted(el, binding) {
+    const options =
+      typeof binding.value === "string"
+        ? { effect: binding.value }
+        : binding.value || {};
+    const effect = options.effect || "fade-up";
+    const delay = options.delay || 0;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    el.classList.add("reveal", `reveal--${effect}`);
+
+    if (delay) {
+      el.style.setProperty("--reveal-delay", `${delay}ms`);
+    }
+
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+      el.classList.add("is-visible");
+      return;
+    }
+
+    revealRegistry.set(el, options);
+    getRevealObserver().observe(el);
+  },
+  beforeUnmount(el) {
+    const observer = getRevealObserver();
+
+    if (observer && revealRegistry.has(el)) {
+      observer.unobserve(el);
+    }
+
+    revealRegistry.delete(el);
+  },
+};
+
 const applyBranding = () => {
   document.documentElement.lang = "nl";
-  document.title = "Coach Rodney";
+  document.title = "Rodney Eelst Tennis";
 
   const links = [
     { rel: "icon", type: "image/jpeg" },
@@ -34,4 +100,8 @@ const applyBranding = () => {
 };
 
 applyBranding();
-createApp(App).mount("#app");
+
+const app = createApp(App);
+
+app.directive("reveal", revealDirective);
+app.mount("#app");

@@ -1,103 +1,139 @@
 <template>
-  <section id="contact" class="site-section site-section--muted contact-section">
+  <section id="contact" class="site-section contact-section">
     <div class="site-container">
-      <div class="site-section-header">
+      <div class="site-section-header" v-reveal="{ effect: 'fade-up' }">
         <span class="site-section-label">Contact</span>
-        <h2 class="site-section-title">Stuur Rodney een bericht.</h2>
+        <h2 class="site-section-title">Stuur Rodney Eelst een bericht.</h2>
         <p class="site-section-copy">
           Laat weten waar je aan wilt werken, wanneer je graag speelt of welke
           lesvorm je aanspreekt. Rodney denkt graag met je mee.
         </p>
       </div>
 
-      <div class="contact-wrap">
-        <div class="contact-shell">
-          <div class="contact-shell__intro">
-            <p class="contact-shell__eyebrow">Zin om te spelen?</p>
-            <h3 class="contact-shell__title">
-              Vertel kort wat jij graag wilt verbeteren
-            </h3>
-            <p class="contact-shell__copy">
-              Een kort berichtje is genoeg om samen te kijken welke lesvorm,
-              dag en sfeer het best bij jou passen.
-            </p>
+      <div class="contact-shell site-panel">
+        <aside class="contact-aside" v-reveal="{ effect: 'slide-right' }">
+          <p class="contact-aside__eyebrow">Zin om te spelen?</p>
+          <h3 class="contact-aside__title">
+            Vertel kort wat jij graag wilt verbeteren.
+          </h3>
+          <p class="contact-aside__copy">
+            Een kort berichtje is genoeg om samen te kijken welke lesvorm, dag
+            en sfeer het best bij jou passen.
+          </p>
+
+          <ul class="contact-aside__list">
+            <li
+              v-for="item in promptItems"
+              :key="item.title"
+              class="contact-aside__item"
+            >
+              <span class="contact-aside__item-icon">
+                <i :class="item.icon"></i>
+              </span>
+              <div>
+                <strong class="contact-aside__item-title">{{ item.title }}</strong>
+                <p class="contact-aside__item-copy">{{ item.copy }}</p>
+              </div>
+            </li>
+          </ul>
+        </aside>
+
+        <form
+          class="contact-form"
+          v-reveal="{ effect: 'fade-up', delay: 120 }"
+          @submit.prevent="handleSubmit"
+        >
+          <div class="contact-honeypot" aria-hidden="true">
+            <label for="contact-website">Website</label>
+            <input
+              id="contact-website"
+              v-model="form.website"
+              type="text"
+              name="website"
+              tabindex="-1"
+              autocomplete="off"
+            />
           </div>
 
-          <form class="contact-form" @submit.prevent="handleSubmit">
-            <div class="contact-honeypot" aria-hidden="true">
-              <label for="contact-website">Website</label>
-              <input
-                id="contact-website"
-                v-model="form.website"
-                type="text"
-                name="website"
-                tabindex="-1"
-                autocomplete="off"
-              />
-            </div>
+          <div class="contact-field">
+            <label class="contact-label" for="contact-name">Naam</label>
+            <input
+              id="contact-name"
+              v-model="form.name"
+              type="text"
+              name="name"
+              class="site-input"
+              placeholder="Je naam"
+            />
+          </div>
 
+          <div class="contact-grid">
             <div class="contact-field">
-              <label class="contact-label" for="contact-name">Naam</label>
+              <label class="contact-label" for="contact-email">E-mail</label>
               <input
-                id="contact-name"
-                v-model="form.name"
-                type="text"
-                name="name"
+                id="contact-email"
+                v-model="form.email"
+                type="email"
+                name="email"
                 class="site-input"
-                placeholder="Je naam"
+                placeholder="jij@email.nl"
               />
             </div>
 
-            <div class="contact-grid">
-              <div class="contact-field">
-                <label class="contact-label" for="contact-email">E-mail</label>
-                <input
-                  id="contact-email"
-                  v-model="form.email"
-                  type="email"
-                  name="email"
-                  class="site-input"
-                  placeholder="jij@email.nl"
-                />
-              </div>
-
-              <div class="contact-field">
-                <label class="contact-label" for="contact-phone">Telefoon</label>
-                <input
-                  id="contact-phone"
-                  v-model="form.phone"
-                  type="text"
-                  name="phone"
-                  class="site-input"
-                  placeholder="Optioneel"
-                />
-              </div>
-            </div>
-
             <div class="contact-field">
-              <label class="contact-label" for="contact-message">Bericht</label>
-              <textarea
-                id="contact-message"
-                v-model="form.message"
-                name="message"
-                class="site-textarea"
-                placeholder="Vertel kort wat je wilt oefenen of wanneer je graag wilt spelen."
-              ></textarea>
+              <label class="contact-label" for="contact-phone">Telefoon</label>
+              <input
+                id="contact-phone"
+                v-model="form.phone"
+                type="text"
+                name="phone"
+                class="site-input"
+                placeholder="Optioneel"
+              />
             </div>
+          </div>
 
-            <div class="contact-actions">
-              <button class="site-button contact-submit" type="submit">
-                Verstuur bericht
-              </button>
-            </div>
-          </form>
-        </div>
+          <div class="contact-field">
+            <label class="contact-label" for="contact-message">Bericht</label>
+            <textarea
+              id="contact-message"
+              v-model="form.message"
+              name="message"
+              class="site-textarea"
+              placeholder="Vertel kort wat je wilt oefenen of wanneer je graag wilt spelen."
+            ></textarea>
+          </div>
+
+          <div class="contact-actions">
+            <button class="site-button contact-submit" type="submit">
+              Verstuur bericht
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+const promptItems = [
+  {
+    copy: "Noem kort waar je spel nu tegenaan loopt of wat je juist wilt versnellen.",
+    icon: "fas fa-crosshairs",
+    title: "Doel van je les",
+  },
+  {
+    copy: "Geef aan of je liever alleen, met z'n tweeën of in een kleine groep traint.",
+    icon: "fas fa-users",
+    title: "Lesvorm",
+  },
+  {
+    copy: "Laat weten op welke dagen of dagdelen je meestal ruimte hebt.",
+    icon: "fas fa-calendar-alt",
+    title: "Beschikbaarheid",
+  },
+];
+
 export default {
   data() {
     return {
@@ -108,6 +144,7 @@ export default {
         phone: "",
         website: "",
       },
+      promptItems,
     };
   },
   methods: {
@@ -122,76 +159,109 @@ export default {
 
 <style scoped>
 .contact-section {
-  background: linear-gradient(
-    180deg,
-    rgba(247, 249, 251, 1) 0%,
-    rgba(255, 255, 255, 1) 100%
-  );
-}
-
-.contact-wrap {
-  display: flex;
-  justify-content: center;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(104, 176, 171, 0.12), transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(238, 243, 248, 0.58));
 }
 
 .contact-shell {
-  width: 100%;
-  max-width: 43rem;
-  border-radius: 1.75rem;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(15, 23, 42, 0.06);
-  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.07);
-  padding: clamp(2rem, 5vw, 3rem);
+  display: grid;
+  gap: 1.15rem;
+  overflow: hidden;
+  padding: 1rem;
 }
 
-.contact-shell__intro {
-  max-width: 34rem;
-  margin: 0 auto 2rem;
-  text-align: center;
+.contact-aside {
+  border-radius: 1.35rem;
+  background:
+    linear-gradient(145deg, rgba(17, 28, 69, 0.96), rgba(50, 83, 129, 0.94)),
+    #111c45;
+  color: #ffffff;
+  padding: clamp(1.4rem, 4vw, 2rem);
 }
 
-.contact-shell__eyebrow {
+.contact-aside__eyebrow {
   margin: 0;
-  color: var(--site-accent);
-  font-size: 0.75rem;
+  color: rgba(223, 255, 79, 0.88);
+  font-size: 0.74rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
-.contact-shell__title {
+.contact-aside__title {
   margin: 0.85rem 0 0;
-  color: #0f172a;
-  font-size: clamp(1.7rem, 4vw, 2.2rem);
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: clamp(1.7rem, 3vw, 2.35rem);
+  line-height: 1.08;
 }
 
-.contact-shell__copy {
+.contact-aside__copy {
   margin: 1rem 0 0;
-  color: #475569;
+  color: rgba(255, 255, 255, 0.8);
   line-height: 1.8;
+}
+
+.contact-aside__list {
+  display: grid;
+  gap: 0.85rem;
+  margin: 1.4rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact-aside__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.9rem 0.95rem;
+}
+
+.contact-aside__item-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.45rem;
+  height: 2.45rem;
+  border-radius: 0.9rem;
+  background: rgba(223, 255, 79, 0.16);
+  color: var(--site-button);
+  flex: 0 0 auto;
+}
+
+.contact-aside__item-title {
+  display: block;
+  font-size: 0.96rem;
+}
+
+.contact-aside__item-copy {
+  margin: 0.28rem 0 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.9rem;
+  line-height: 1.55;
 }
 
 .contact-form {
   display: grid;
-  gap: 1.75rem;
+  gap: 1.2rem;
+  padding: clamp(0.5rem, 2vw, 1rem);
 }
 
 .contact-grid {
   display: grid;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .contact-field {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 0.75rem;
 }
 
 .contact-label {
   color: #334155;
-  font-size: 0.75rem;
+  font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -199,8 +269,8 @@ export default {
 
 .contact-actions {
   display: flex;
-  justify-content: center;
-  padding-top: 0.35rem;
+  justify-content: flex-start;
+  padding-top: 0.2rem;
 }
 
 .contact-submit,
@@ -218,6 +288,14 @@ export default {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+@media (min-width: 920px) {
+  .contact-shell {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 1.3rem;
+    padding: 1.1rem;
+  }
 }
 
 @media (min-width: 768px) {
